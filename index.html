@@ -83,7 +83,7 @@
 		<div class="divider"></div>
 
 		<!-- SECOND ROW W/ HEADER HTML -->
-		<div class="row for-header">
+		<div class="row for-header hidden">
 			<div class="col heading">
 				<h3> Awesome Features </h3>
 			</div>
@@ -157,16 +157,20 @@
 					firstImgOffset = firstRowImg.offset().top,
 					firstRowText = $('.first-row-text'),
 					firstRowTextHeight = firstRowText.height(),
-					firstTextOffset = firstRowText.offset().top / 2;
+					firstTextOffset = firstRowText.offset().top - ( firstRowTextHeight / 2);
 					
+				var header = $('.for-header'),
+					headerHeight = header.height(),
+					headerOffset = header.offset().top - (headerHeight * 3);
+				
 				var secondRow = $('.second-row'),
-					secondRowOffset = secondRow.offset().top / 2,
+					secondRowOffset = secondRow.offset().top - (secondRow.height() / 2),
 					secondRowImg = $('.second-row-image'),
 					secondRowImgHeight = secondRowImg.height(),
-					secondImgOffset = secondRowImg.offset().top - (secondRowImgHeight),
+					secondImgOffset = secondRowImg.offset().top - (secondRowImgHeight / 2),
 					secondRowText = $('.second-row-text'),
 					secondRowTextHeight = secondRowText.height(),
-					secondTextOffset = secondRowText.offset().top - (secondRowTextHeight);
+					secondTextOffset = secondRowText.offset().top - (secondRowTextHeight / 2);
 
 				var	documentEl = $(document);
 			
@@ -188,6 +192,10 @@
 							firstRowText.removeClass('hidden');
 							firstRowText.addClass('slide-top-blur-in');
 						}
+						if(documentEl.scrollTop() > headerOffset && header.hasClass('hidden')){
+							header.removeClass('hidden');
+							header.addClass('slide-top-blur-in');
+						}
 						if(documentEl.scrollTop() > secondImgOffset && secondRowImg.hasClass('hidden')){
 							secondRowImg.removeClass('hidden');
 							secondRowImg.addClass('slide-top-blur-in');
@@ -198,9 +206,14 @@
 						}
 					}
 					else{
+						if(documentEl.scrollTop() > headerOffset && header.hasClass('hidden')){
+							header.removeClass('hidden');
+							header.addClass('slide-top-blur-in');
+						}
 						if(documentEl.scrollTop() > secondRowOffset && secondRow.hasClass('hidden')){
 							secondRow.removeClass('hidden');
-							secondRow.addClass('slide-top-blur-in');
+							secondRowImg.addClass('slide-left-blur-in');
+							secondRowText.addClass('slide-right-blur-in');
 						}
 					}
 				});
